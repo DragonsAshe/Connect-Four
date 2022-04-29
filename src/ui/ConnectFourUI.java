@@ -1,5 +1,7 @@
 package ui;
 
+import connectfour.ConnectFour;
+
 import java.io.*;
 
 public class ConnectFourUI {
@@ -8,9 +10,12 @@ public class ConnectFourUI {
     private static final String CONNECT = "connect";
     private static final String OPEN = "open";
     private static final String SET = "set";
+    private static final int DEFAULT_COLUMNS = 7;
+    private static final int DEFAULT_ROWS = 6;
     private final PrintStream outStream;
     private final BufferedReader inBufferedReader;
     private final String playerName;
+    private final ConnectFour gameEngine;
     private String partnerName;
 
     public static void main(String[] args) {
@@ -35,6 +40,7 @@ public class ConnectFourUI {
         this.outStream = os;
         this.inBufferedReader = new BufferedReader(new InputStreamReader(is));
 
+        this.gameEngine = new ConnectFour(DEFAULT_COLUMNS, DEFAULT_ROWS);
     }
 
     public void printUsage() {
@@ -142,6 +148,8 @@ public class ConnectFourUI {
     }
 
     private void doPrint() throws IOException {
+
+        this.gameEngine.print();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
