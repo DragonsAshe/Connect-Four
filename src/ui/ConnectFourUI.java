@@ -9,12 +9,11 @@ public class ConnectFourUI {
     private static final String EXIT = "exit";
     private static final String CONNECT = "connect";
     private static final String OPEN = "open";
-    private static final String SET = "set";
+    private static final String INSERT = "insert";
     private static final int DEFAULT_COLUMNS = 7;
     private static final int DEFAULT_ROWS = 6;
     private final PrintStream outStream;
     private final BufferedReader inBufferedReader;
-    private final String playerName;
     private final ConnectFour gameEngine;
     private String partnerName;
 
@@ -36,7 +35,6 @@ public class ConnectFourUI {
     }
 
     public ConnectFourUI(String playerName, PrintStream os, InputStream is) {
-        this.playerName = playerName;
         this.outStream = os;
         this.inBufferedReader = new BufferedReader(new InputStreamReader(is));
 
@@ -58,8 +56,8 @@ public class ConnectFourUI {
                 PRINT +
                 ".. print board" +
                 "\n" +
-                SET +
-                ".. set a piece" +
+                INSERT +
+                ".. insert a piece" +
                 "\n" +
                 EXIT +
                 ".. exit";
@@ -97,7 +95,7 @@ public class ConnectFourUI {
                     case PRINT -> this.doPrint();
                     case CONNECT -> this.doConnect();
                     case OPEN -> this.doOpen();
-                    case SET -> {
+                    case INSERT -> {
                         this.doSet();
                         // redraw
                         this.doPrint();
@@ -137,6 +135,7 @@ public class ConnectFourUI {
 
     private void doExit() throws IOException {
         // shutdown engines which needs to be
+
     }
 
     private void doOpen() {
@@ -149,7 +148,8 @@ public class ConnectFourUI {
 
     private void doPrint() throws IOException {
 
-        this.gameEngine.print();
+        this.gameEngine.getPrintStreamView().print(System.out);
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

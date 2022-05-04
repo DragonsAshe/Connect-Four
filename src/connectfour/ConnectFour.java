@@ -1,5 +1,8 @@
 package connectfour;
 
+import view.ConnectFourPrintStreamView;
+import view.PrintStreamView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,8 +15,8 @@ public class ConnectFour {
 
     // Method to insert a piece into the column that is specified
     public void insert(int position, String localPlayerName){
-        if(board.get(position).size() != 6){
-            board.get(position).add(localPlayerName);
+        if(board.get(position-1).size() != 6){
+            board.get(position-1).add(localPlayerName);
         } // Throw Exception here
     }
 
@@ -29,6 +32,10 @@ public class ConnectFour {
             }
             System.out.println();
         }
+    }
+
+    public PrintStreamView getPrintStreamView() {
+        return new ConnectFourPrintStreamView(this.board);
     }
 
     public boolean win(String localPlayerName) {
@@ -88,25 +95,3 @@ public class ConnectFour {
     }
 }
 
-class Board {
-    private final ArrayList<ArrayList<String>> board;
-    Board(int columns, int rows){
-        this.board = new ArrayList<>();
-        for(int i = 0; i < columns ; i++) {
-            board.add(new ArrayList<>(rows)) ;
-        }
-    }
-    ArrayList<String> get(int index){
-        return this.board.get(index);
-    }
-    String getCell(int column, int row){
-        if (get(column).size() - 1 >= row){
-            return this.board.get(column).get(row);
-        }
-        return "";
-    }
-    int getBoardLength (){
-        return this.board.size();
-    }
-
-}
