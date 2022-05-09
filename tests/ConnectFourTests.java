@@ -20,7 +20,6 @@ public class ConnectFourTests {
         game.insert(1, name1);
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
-        game.print();
     }
 
 }

@@ -3,10 +3,10 @@ package view;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public abstract class PrintStreamView {
+public interface PrintStreamView {
     /**
      * Print a (visual) representation to given stream
      *
      */
-    public abstract void print(PrintStream ps) throws IOException;
+    void print(PrintStream ps);
 }

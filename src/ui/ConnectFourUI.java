@@ -1,8 +1,10 @@
 package ui;
 
 import connectfour.ConnectFour;
+import connectfour.ConnectFourGame;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class ConnectFourUI {
     private static final String PRINT = "print";
@@ -14,7 +16,8 @@ public class ConnectFourUI {
     private static final int DEFAULT_ROWS = 6;
     private final PrintStream outStream;
     private final BufferedReader inBufferedReader;
-    private final ConnectFour gameEngine;
+    private final ConnectFourGame gameEngine;
+    private final String playerName;
     private String partnerName;
 
     public static void main(String[] args) {
@@ -37,6 +40,7 @@ public class ConnectFourUI {
     public ConnectFourUI(String playerName, PrintStream os, InputStream is) {
         this.outStream = os;
         this.inBufferedReader = new BufferedReader(new InputStreamReader(is));
+        this.playerName = playerName;
 
         this.gameEngine = new ConnectFour(DEFAULT_COLUMNS, DEFAULT_ROWS);
     }
@@ -89,14 +93,15 @@ public class ConnectFourUI {
                 String commandString = cmdLineString.substring(0, spaceIndex);
 
                 // extract parameters string - can be empty
-
+                String parameterString = cmdLineString.substring(spaceIndex);
+                parameterString = parameterString.trim();
                 // start command loop
                 switch (commandString) {
                     case PRINT -> this.doPrint();
                     case CONNECT -> this.doConnect();
                     case OPEN -> this.doOpen();
                     case INSERT -> {
-                        this.doSet();
+                        this.doInsert(parameterString);
                         // redraw
                         this.doPrint();
                     } // convenience
@@ -127,9 +132,14 @@ public class ConnectFourUI {
     //                                           ui method implementations                                        //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void doSet() {
+    private void doInsert(String parameterString) {
         // call guards
-        this.checkConnnectionStatus();
+        this.checkConnectionStatus();
+
+        StringTokenizer st = new StringTokenizer(parameterString);
+        int coordinate = Integer.parseInt(st.nextToken());
+
+        this.gameEngine.insert(coordinate, this.playerName);
 
     }
 
@@ -159,7 +169,7 @@ public class ConnectFourUI {
     /**
      * Guard method - checks if already connected
      */
-    private void checkConnnectionStatus() {
+    private void checkConnectionStatus() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,13 +1,13 @@
 package view;
 
-import connectfour.Board;
-
+import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
-public class ConnectFourPrintStreamView extends PrintStreamView {
-    private final Board board;
+public class ConnectFourPrintStreamView implements PrintStreamView {
+    private final ArrayList<ArrayList<String>> board;
 
-    public ConnectFourPrintStreamView(Board board) {
+    public ConnectFourPrintStreamView(ArrayList<ArrayList<String>> board) {
         this.board = board;
     }
 
