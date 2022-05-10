@@ -1,8 +1,5 @@
 package connectfour;
 
-import view.ConnectFourPrintStreamView;
-import view.PrintStreamView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,7 +28,7 @@ public class ConnectFour implements ConnectFourGame{
     private boolean horizontalWin(ArrayList<Integer> heights, String localPlayerName) {
         int length = board.getBoardLength();
 
-        for (int i = 0; i < length - 4; i++) {
+        for (int i = 0; i <= length - 4; i++) {
             for (int j = 0; j < Collections.min(heights.subList(i, i + 3)); j++) {
                 if (this.board.getCell(i, j).equals(localPlayerName) && this.board.getCell(i + 1, j).equals(localPlayerName) && this.board.getCell(i + 2, j).equals(localPlayerName) && this.board.getCell(i + 3, j).equals(localPlayerName)) {
                     return true;
@@ -44,8 +41,8 @@ public class ConnectFour implements ConnectFourGame{
     private boolean verticalWin(String localPlayerName) {
         int length = this.board.getBoardLength();
 
-        for (int i = 0; i < length - 1; i++) {
-            for (int j = 0; j < this.board.get(i).size() - 4; j++) {
+        for (int i = 0; i <= length - 1; i++) {
+            for (int j = 0; j <= this.board.get(i).size() - 4; j++) {
                 if (this.board.getCell(i, j).equals(localPlayerName) && this.board.getCell(i, j + 1).equals(localPlayerName) && this.board.getCell(i, j + 2).equals(localPlayerName) && this.board.getCell(i, j + 3).equals(localPlayerName)) {
                     return true;
                 }
@@ -57,8 +54,8 @@ public class ConnectFour implements ConnectFourGame{
     private boolean ascendingDiagonalWin(String localPlayerName) {
         int length = this.board.getBoardLength();
 
-        for (int i = 3; i < length - 1; i++) {
-            for (int j = 0; j < this.board.get(i).size() - 1; j++) {
+        for (int i = 3; i <= length - 1; i++) {
+            for (int j = 0; j <= this.board.get(i).size() - 1; j++) {
                 if (this.board.getCell(i, j).equals(localPlayerName) && this.board.getCell(i - 1, j + 1).equals(localPlayerName) && this.board.getCell(i - 2, j + 2).equals(localPlayerName) && this.board.getCell(i - 3, j + 3).equals(localPlayerName)) {
                     return true;
                 }
@@ -70,8 +67,8 @@ public class ConnectFour implements ConnectFourGame{
     private boolean descendingDiagonalWin(String localPlayerName) {
         int length = this.board.getBoardLength();
 
-        for (int i = 3; i < length - 1; i++) {
-            for (int j = 3; j < this.board.get(i).size() - 1; j++) {
+        for (int i = 3; i <= length - 1; i++) {
+            for (int j = 3; j <= this.board.get(i).size() - 1; j++) {
                 if (this.board.getCell(i, j).equals(localPlayerName) && this.board.getCell(i - 1, j - 1).equals(localPlayerName) && this.board.getCell(i - 2, j - 2).equals(localPlayerName) && this.board.getCell(i - 3, j - 3).equals(localPlayerName)) {
                     return true;
                 }
@@ -80,8 +77,20 @@ public class ConnectFour implements ConnectFourGame{
         return false;
     }
 
-    public PrintStreamView getPrintStreamView() {
-        return board.getPrintStream();
+    public String boardToString() {
+        StringBuilder b = new StringBuilder();
+        for(int row = 5; row >= 0; row--) {
+            b.append("| ");
+            for(int column = 0; column < 7; column++) {
+                if(board.get(column).size()-1 < row) {
+                    b.append("0 | ");
+                }else{
+                    b.append(board.get(column).get(row)).append(" | ");
+                }
+            }
+            b.append("\n");
+        }
+        return b.toString();
     }
 }
 
@@ -110,7 +119,4 @@ class Board {
         return this.board.size();
     }
 
-    public PrintStreamView getPrintStream() {
-        return new ConnectFourPrintStreamView(this.board);
-    }
 }

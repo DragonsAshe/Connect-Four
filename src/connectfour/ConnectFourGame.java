@@ -1,9 +1,5 @@
 package connectfour;
 
-import view.PrintStreamView;
-
-import java.io.PrintStream;
-
 public interface ConnectFourGame {
     /**
      * Method that checks if a given player has won
@@ -23,5 +19,5 @@ public interface ConnectFourGame {
      * Method calls a method that prints out the board
      * @return returns a print stream
      */
-    PrintStreamView getPrintStreamView();
+    String boardToString();
 }
