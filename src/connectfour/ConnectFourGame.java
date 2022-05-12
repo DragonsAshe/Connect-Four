@@ -16,8 +16,8 @@ public interface ConnectFourGame {
     void insert(int position, String localPlayerName);
 
     /**
-     * Method calls a method that prints out the board
-     * @return returns a print stream
+     * Method converts the board into a printable string
+     * @return returns a String that holds the board
      */
     String boardToString();
 }

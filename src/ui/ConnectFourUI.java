@@ -31,7 +31,7 @@ public class ConnectFourUI {
         System.out.println("Welcome " + args[0]);
         System.out.println("Let's play a game");
 
-        ConnectFourUI userCmd = new ConnectFourUI(args[0], System.err, System.in);
+        ConnectFourUI userCmd = new ConnectFourUI(args[0], System.out, System.in);
 
         userCmd.printUsage();
         userCmd.runCommandLoop();
@@ -158,7 +158,7 @@ public class ConnectFourUI {
 
     private void doPrint() throws IOException {
 
-        this.outStream.println();
+        this.outStream.println(this.gameEngine.boardToString());
 
     }
 

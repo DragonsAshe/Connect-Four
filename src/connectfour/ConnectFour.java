@@ -118,5 +118,4 @@ class Board {
     public int getBoardLength() {
         return this.board.size();
     }
-
 }
