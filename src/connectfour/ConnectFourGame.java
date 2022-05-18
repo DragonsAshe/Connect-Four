@@ -20,4 +20,10 @@ public interface ConnectFourGame {
      * @return returns a String that holds the board
      */
     String boardToString();
+
+    /**
+     * Method that puts the partner name into the hashmap
+     * @param partnerName The partners name
+     */
+    void setEnemy(String partnerName);
 }

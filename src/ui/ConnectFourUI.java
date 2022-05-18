@@ -18,7 +18,6 @@ public class ConnectFourUI {
     private final BufferedReader inBufferedReader;
     private final ConnectFourGame gameEngine;
     private final String playerName;
-    private String partnerName;
 
     public static void main(String[] args) {
         System.out.println("Welcome to Connect Four version 0.1");
@@ -42,7 +41,7 @@ public class ConnectFourUI {
         this.inBufferedReader = new BufferedReader(new InputStreamReader(is));
         this.playerName = playerName;
 
-        this.gameEngine = new ConnectFour(DEFAULT_COLUMNS, DEFAULT_ROWS);
+        this.gameEngine = new ConnectFour(DEFAULT_COLUMNS, DEFAULT_ROWS, playerName);
     }
 
     public void printUsage() {

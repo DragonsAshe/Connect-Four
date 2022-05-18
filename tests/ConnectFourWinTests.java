@@ -6,9 +6,10 @@ public class ConnectFourWinTests {
 
     @Test
     void horizontalWinTest1(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(4,name1);
         game.insert(3, name1);
@@ -21,9 +22,10 @@ public class ConnectFourWinTests {
 
     @Test
     void horizontalWinTest2(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(7,name1);
         game.insert(6, name1);
@@ -36,9 +38,10 @@ public class ConnectFourWinTests {
 
     @Test
     void horizontalWinTest3(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(1,name2);
         game.insert(1,name2);
@@ -69,9 +72,10 @@ public class ConnectFourWinTests {
 
     @Test
     void horizontalWinTest4(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(7,name2);
         game.insert(7,name2);
@@ -102,9 +106,10 @@ public class ConnectFourWinTests {
 
     @Test
     void descendingDiagonalWinTest1(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(1,name1);
         game.insert(2, name2);
@@ -124,9 +129,10 @@ public class ConnectFourWinTests {
 
     @Test
     void descendingDiagonalWinTest2(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(4,name1);
         game.insert(5, name2);
@@ -146,9 +152,10 @@ public class ConnectFourWinTests {
 
     @Test
     void verticalWinTest1(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(1,name1);
         game.insert(1, name1);
@@ -162,9 +169,10 @@ public class ConnectFourWinTests {
 
     @Test
     void verticalWinTest2(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(7,name1);
         game.insert(7, name1);
@@ -178,9 +186,10 @@ public class ConnectFourWinTests {
 
     @Test
     void verticalWinTest3(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(7,name2);
         game.insert(7,name2);
@@ -196,9 +205,10 @@ public class ConnectFourWinTests {
 
     @Test
     void verticalWinTest4(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(1,name2);
         game.insert(1,name2);
@@ -214,9 +224,10 @@ public class ConnectFourWinTests {
 
     @Test
     void ascendingDiagonalWinTest1(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(7,name1);
         game.insert(6, name2);
@@ -236,9 +247,10 @@ public class ConnectFourWinTests {
 
     @Test
     void ascendingDiagonalWinTest2(){
-        ConnectFour game = new ConnectFour(7,6);
         String name1 = "A";
         String name2 = "B";
+        ConnectFour game = new ConnectFour(7,6, name1);
+        game.setEnemy(name2);
 
         game.insert(4,name1);
         game.insert(3, name2);

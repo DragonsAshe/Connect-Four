@@ -2,12 +2,20 @@ package connectfour;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class ConnectFour implements ConnectFourGame{
     private final Board board;
+    private final HashMap<String, Integer> players = new HashMap<>();
 
-    public ConnectFour(int columns, int rows) {
+    public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
+        this.players.put(localPlayerName, 1);
+    }
+
+    @Override
+    public void setEnemy(String partnerName) {
+        this.players.put(partnerName, 2);
     }
 
     // Method to insert a piece into the column that is specified
@@ -85,7 +93,7 @@ public class ConnectFour implements ConnectFourGame{
                 if(board.get(column).size()-1 < row) {
                     b.append("0 | ");
                 }else{
-                    b.append(board.get(column).get(row)).append(" | ");
+                    b.append(players.get(board.get(column).get(row))).append(" | ");
                 }
             }
             b.append("\n");
