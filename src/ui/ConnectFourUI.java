@@ -2,6 +2,7 @@ package ui;
 
 import connectfour.ConnectFour;
 import connectfour.ConnectFourGame;
+import connectfour.GameException;
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -123,6 +124,8 @@ public class ConnectFourUI {
                 }
             }  catch (RuntimeException ex) {
                 this.outStream.println("runtime problems: " + ex.getLocalizedMessage());
+            }  catch (GameException ex) {
+                this.outStream.println("game exception: " + ex.getLocalizedMessage());
             }
         }
     }
@@ -131,7 +134,7 @@ public class ConnectFourUI {
     //                                           ui method implementations                                        //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void doInsert(String parameterString) {
+    private void doInsert(String parameterString) throws GameException{
         // call guards
         this.checkConnectionStatus();
 

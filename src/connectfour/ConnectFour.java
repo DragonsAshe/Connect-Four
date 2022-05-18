@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class ConnectFour implements ConnectFourGame{
     private final Board board;
     private final HashMap<String, Integer> players = new HashMap<>();
+    private Status status = Status.START;
 
     public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
@@ -19,10 +20,14 @@ public class ConnectFour implements ConnectFourGame{
     }
 
     // Method to insert a piece into the column that is specified
-    public void insert(int position, String localPlayerName) {
-        if (board.get(position - 1).size() != 6) {
-            board.get(position - 1).add(localPlayerName);
-        } // Throw Exception here
+    public void insert(int position, String localPlayerName) throws GameException{
+        if (this.status != Status.ENDED) {
+            if (board.get(position - 1).size() != 6) {
+                board.get(position - 1).add(localPlayerName);
+            } else {
+                throw new GameException("Given Column not on board");
+            }
+        }
     }
 
     public boolean win(String localPlayerName){
@@ -30,7 +35,11 @@ public class ConnectFour implements ConnectFourGame{
         for (int i = 0; i < this.board.getBoardLength(); i++) {
             heights.add(this.board.get(i).size());
         }
-        return horizontalWin(heights, localPlayerName) || verticalWin(localPlayerName) || ascendingDiagonalWin(localPlayerName) || descendingDiagonalWin(localPlayerName);
+        if (horizontalWin(heights, localPlayerName) || verticalWin(localPlayerName) || ascendingDiagonalWin(localPlayerName) || descendingDiagonalWin(localPlayerName)){
+            this.status = Status.ENDED;
+            return true;
+        }
+        return false;
     }
 
     private boolean horizontalWin(ArrayList<Integer> heights, String localPlayerName) {

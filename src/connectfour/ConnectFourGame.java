@@ -13,7 +13,7 @@ public interface ConnectFourGame {
      * @param position The column that the piece should be inserted to
      * @param localPlayerName The player whose piece is getting inserted
      */
-    void insert(int position, String localPlayerName);
+    void insert(int position, String localPlayerName) throws GameException;
 
     /**
      * Method converts the board into a printable string

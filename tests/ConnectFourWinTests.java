@@ -1,11 +1,12 @@
 import connectfour.ConnectFour;
+import connectfour.GameException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ConnectFourWinTests {
 
     @Test
-    void horizontalWinTest1(){
+    void horizontalWinTest1() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -21,7 +22,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void horizontalWinTest2(){
+    void horizontalWinTest2() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -37,7 +38,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void horizontalWinTest3(){
+    void horizontalWinTest3() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -71,7 +72,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void horizontalWinTest4(){
+    void horizontalWinTest4() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -105,7 +106,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void descendingDiagonalWinTest1(){
+    void descendingDiagonalWinTest1() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -128,7 +129,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void descendingDiagonalWinTest2(){
+    void descendingDiagonalWinTest2() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -151,7 +152,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void verticalWinTest1(){
+    void verticalWinTest1() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -168,7 +169,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void verticalWinTest2(){
+    void verticalWinTest2() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -185,7 +186,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void verticalWinTest3(){
+    void verticalWinTest3() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -204,7 +205,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void verticalWinTest4(){
+    void verticalWinTest4() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -223,7 +224,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void ascendingDiagonalWinTest1(){
+    void ascendingDiagonalWinTest1() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -246,7 +247,7 @@ public class ConnectFourWinTests {
     }
 
     @Test
-    void ascendingDiagonalWinTest2(){
+    void ascendingDiagonalWinTest2() throws GameException {
         String name1 = "A";
         String name2 = "B";
         ConnectFour game = new ConnectFour(7,6, name1);
@@ -266,5 +267,6 @@ public class ConnectFourWinTests {
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
+
     }
 }
