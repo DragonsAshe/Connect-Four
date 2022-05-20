@@ -6,14 +6,13 @@ public interface ConnectFourGame {
      * @param localPlayerName The player to check if he won
      * @return true or false if the player won
      */
-    boolean win (String localPlayerName);
+    boolean win (int localPlayerName);
 
     /**
      * Method to insert a piece into the board
      * @param position The column that the piece should be inserted to
-     * @param localPlayerName The player whose piece is getting inserted
      */
-    void insert(int position, String localPlayerName) throws GameException;
+    void insert(int position) throws GameException;
 
     /**
      * Method converts the board into a printable string

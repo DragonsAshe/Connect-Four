@@ -1,8 +1,8 @@
 package connectfour;
 
 public enum Status {
-    START,
-    PLAYING,
-    WAITING,
+    INITIALIZED,
+    READY,
+    WAIT,
     ENDED
 }
