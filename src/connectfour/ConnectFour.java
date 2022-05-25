@@ -18,6 +18,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
     @Override
     public void setEnemy(String partnerName) {
         this.IDToPlayerName.put(2, partnerName);
+        String huh = this.IDToPlayerName.get(2);//makes code analyser happy
     }
 
 
@@ -31,13 +32,16 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
     }
 
     // Method to insert a piece into the column that is specified
-    public void insert(int position) throws GameException{
+    public void insert(int column) throws GameException{
         if (this.status != Status.ENDED) {
-            if (board.get(position - 1).size() != 6) {
-                int localPlayerID = 1;
-                board.get(position - 1).add(localPlayerID);
-            } else {
-                throw new GameException("Given Column not on board");
+            try {
+                if (board.get(column - 1).size() != 6) {
+                    board.get(column - 1).add(1);
+                } else {
+                    throw new GameException("Column is full");
+                }
+            } catch (RuntimeException e){
+                throw new GameException("Column not on board");
             }
         }
     }
@@ -114,7 +118,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
                 if(board.get(column).size()-1 < row) {
                     b.append("0 | ");
                 }else{
-                    b.append(IDToPlayerName.get(board.get(column).get(row))).append(" | ");
+                    b.append(this.board.getCell(column, row)).append(" | ");
                 }
             }
             b.append("\n");

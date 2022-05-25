@@ -10,9 +10,9 @@ public interface ConnectFourGame {
 
     /**
      * Method to insert a piece into the board
-     * @param position The column that the piece should be inserted to
+     * @param column The column that the piece should be inserted to
      */
-    void insert(int position) throws GameException;
+    void insert(int column) throws GameException;
 
     /**
      * Method converts the board into a printable string

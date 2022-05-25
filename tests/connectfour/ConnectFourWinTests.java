@@ -1,5 +1,5 @@
-import connectfour.ConnectFour;
-import connectfour.DebugEngine;
+package connectfour;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -253,7 +253,7 @@ public class ConnectFourWinTests {
         game.insertDebug(1, name2);
         game.insertDebug(1, name1);
         System.out.println(game.boardToString());
-        Assertions.assertTrue(game.win(name1));
+        Assertions.assertTrue(game.win(name1), game.boardToString());
         Assertions.assertFalse(game.win(name2));
 
     }
