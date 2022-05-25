@@ -141,7 +141,7 @@ public class ConnectFourUI {
         StringTokenizer st = new StringTokenizer(parameterString);
         int coordinate = Integer.parseInt(st.nextToken());
 
-        this.gameEngine.insert(coordinate, this.playerName);
+        this.gameEngine.insert(coordinate);
 
     }
 

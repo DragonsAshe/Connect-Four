@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class ConnectFour implements ConnectFourGame{
+public class ConnectFour implements ConnectFourGame, DebugEngine{
     private final Board board;
     private final HashMap<Integer, String> IDToPlayerName = new HashMap<>();
     private Status status = Status.INITIALIZED;
@@ -12,12 +12,22 @@ public class ConnectFour implements ConnectFourGame{
     public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
 
-        this.IDToPlayerName.put(1, localPlayerName);
+        this.IDToPlayerName.put((int) (Math.random() * 1000000000), localPlayerName);
     }
 
     @Override
     public void setEnemy(String partnerName) {
         this.IDToPlayerName.put(2, partnerName);
+    }
+
+
+    @Override
+    public void insertDebug(int position, int player){
+        if (this.status != Status.ENDED) {
+            if (board.get(position - 1).size() != 6) {
+                board.get(position - 1).add(player);
+            }
+        }
     }
 
     // Method to insert a piece into the column that is specified

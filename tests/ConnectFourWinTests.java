@@ -1,269 +1,257 @@
 import connectfour.ConnectFour;
-import connectfour.GameException;
+import connectfour.DebugEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ConnectFourWinTests {
 
     @Test
-    void horizontalWinTest1() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void horizontalWinTest1() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(4,name1);
-        game.insert(3, name1);
+        game.insertDebug(4,name1);
+        game.insertDebug(3, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(2, name1);
-        game.insert(1, name1);
+        game.insertDebug(2, name1);
+        game.insertDebug(1, name1);
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void horizontalWinTest2() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void horizontalWinTest2() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(7,name1);
-        game.insert(6, name1);
+        game.insertDebug(7,name1);
+        game.insertDebug(6, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(5, name1);
-        game.insert(4, name1);
+        game.insertDebug(5, name1);
+        game.insertDebug(4, name1);
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void horizontalWinTest3() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void horizontalWinTest3() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(1,name2);
-        game.insert(1,name2);
-        game.insert(1,name2);
-        game.insert(1,name2);
-        game.insert(1,name2);
-        game.insert(2, name2);
-        game.insert(2, name2);
-        game.insert(2, name2);
-        game.insert(2, name2);
-        game.insert(2, name2);
-        game.insert(3, name2);
-        game.insert(3, name2);
-        game.insert(3, name2);
-        game.insert(3, name2);
-        game.insert(3, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(1, name1);
-        game.insert(2, name1);
-        game.insert(3, name1);
-        game.insert(4, name1);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name2);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name2);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(1, name1);
+        game.insertDebug(2, name1);
+        game.insertDebug(3, name1);
+        game.insertDebug(4, name1);
         Assertions.assertTrue(game.win(name1));
     }
 
     @Test
-    void horizontalWinTest4() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void horizontalWinTest4() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(7,name2);
-        game.insert(7,name2);
-        game.insert(7,name2);
-        game.insert(7,name2);
-        game.insert(7,name2);
-        game.insert(6, name2);
-        game.insert(6, name2);
-        game.insert(6, name2);
-        game.insert(6, name2);
-        game.insert(6, name2);
-        game.insert(5, name2);
-        game.insert(5, name2);
-        game.insert(5, name2);
-        game.insert(5, name2);
-        game.insert(5, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(4, name2);
-        game.insert(7, name1);
-        game.insert(6, name1);
-        game.insert(5, name1);
-        game.insert(4, name1);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name2);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name2);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name2);
+        game.insertDebug(7, name1);
+        game.insertDebug(6, name1);
+        game.insertDebug(5, name1);
+        game.insertDebug(4, name1);
         Assertions.assertTrue(game.win(name1));
     }
 
     @Test
-    void descendingDiagonalWinTest1() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void descendingDiagonalWinTest1() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(1,name1);
-        game.insert(2, name2);
-        game.insert(2, name1);
+        game.insertDebug(1,name1);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(3, name2);
-        game.insert(4, name1);
-        game.insert(3, name2);
-        game.insert(3, name1);
-        game.insert(4, name1);
-        game.insert(4, name2);
-        game.insert(4, name1);
+        game.insertDebug(3, name2);
+        game.insertDebug(4, name1);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name1);
+        game.insertDebug(4, name1);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void descendingDiagonalWinTest2() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void descendingDiagonalWinTest2() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(4,name1);
-        game.insert(5, name2);
-        game.insert(5, name1);
+        game.insertDebug(4,name1);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(6, name2);
-        game.insert(7, name1);
-        game.insert(6, name2);
-        game.insert(6, name1);
-        game.insert(7, name1);
-        game.insert(7, name2);
-        game.insert(7, name1);
+        game.insertDebug(6, name2);
+        game.insertDebug(7, name1);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name1);
+        game.insertDebug(7, name1);
+        game.insertDebug(7, name2);
+        game.insertDebug(7, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void verticalWinTest1() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void verticalWinTest1() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(1,name1);
-        game.insert(1, name1);
-        game.insert(1, name1);
+        game.insertDebug(1,name1);
+        game.insertDebug(1, name1);
+        game.insertDebug(1, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(1, name1);
+        game.insertDebug(1, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void verticalWinTest2() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void verticalWinTest2() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(7,name1);
-        game.insert(7, name1);
-        game.insert(7, name1);
+        game.insertDebug(7,name1);
+        game.insertDebug(7, name1);
+        game.insertDebug(7, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(7, name1);
+        game.insertDebug(7, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void verticalWinTest3() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void verticalWinTest3() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(7,name2);
-        game.insert(7,name2);
-        game.insert(7,name1);
-        game.insert(7, name1);
-        game.insert(7, name1);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name2);
+        game.insertDebug(7,name1);
+        game.insertDebug(7, name1);
+        game.insertDebug(7, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(7, name1);
+        game.insertDebug(7, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void verticalWinTest4() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void verticalWinTest4() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(1,name2);
-        game.insert(1,name2);
-        game.insert(1,name1);
-        game.insert(1, name1);
-        game.insert(1, name1);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name2);
+        game.insertDebug(1,name1);
+        game.insertDebug(1, name1);
+        game.insertDebug(1, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(1, name1);
+        game.insertDebug(1, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void ascendingDiagonalWinTest1() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void ascendingDiagonalWinTest1() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(7,name1);
-        game.insert(6, name2);
-        game.insert(6, name1);
+        game.insertDebug(7,name1);
+        game.insertDebug(6, name2);
+        game.insertDebug(6, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(5, name2);
-        game.insert(4, name1);
-        game.insert(5, name2);
-        game.insert(5, name1);
-        game.insert(4, name1);
-        game.insert(4, name2);
-        game.insert(4, name1);
+        game.insertDebug(5, name2);
+        game.insertDebug(4, name1);
+        game.insertDebug(5, name2);
+        game.insertDebug(5, name1);
+        game.insertDebug(4, name1);
+        game.insertDebug(4, name2);
+        game.insertDebug(4, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
     }
 
     @Test
-    void ascendingDiagonalWinTest2() throws GameException {
-        String name1 = "A";
-        String name2 = "B";
-        ConnectFour game = new ConnectFour(7,6, name1);
-        game.setEnemy(name2);
+    void ascendingDiagonalWinTest2() {
+        int name1 = 1;
+        int name2 = 2;
+        DebugEngine game = new ConnectFour(7,6, "A");
 
-        game.insert(4,name1);
-        game.insert(3, name2);
-        game.insert(3, name1);
+        game.insertDebug(4,name1);
+        game.insertDebug(3, name2);
+        game.insertDebug(3, name1);
         Assertions.assertFalse(game.win(name1));
-        game.insert(2, name2);
-        game.insert(1, name1);
-        game.insert(2, name2);
-        game.insert(2, name1);
-        game.insert(1, name1);
-        game.insert(1, name2);
-        game.insert(1, name1);
+        game.insertDebug(2, name2);
+        game.insertDebug(1, name1);
+        game.insertDebug(2, name2);
+        game.insertDebug(2, name1);
+        game.insertDebug(1, name1);
+        game.insertDebug(1, name2);
+        game.insertDebug(1, name1);
         System.out.println(game.boardToString());
         Assertions.assertTrue(game.win(name1));
         Assertions.assertFalse(game.win(name2));
