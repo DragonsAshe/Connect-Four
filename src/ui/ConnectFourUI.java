@@ -8,7 +8,7 @@ import network.TCPStreamCreatedListener;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener, LocalBoardChangeListener {
+public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener{
     private static final String PRINT = "print";
     private static final String EXIT = "exit";
     private static final String CONNECT = "connect";
@@ -130,6 +130,8 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
                 this.outStream.println("runtime problems: " + ex.getLocalizedMessage());
             }  catch (GameException ex) {
                 this.outStream.println("game exception: " + ex.getLocalizedMessage());
+            } catch (StatusException ex) {
+                this.outStream.println(("status exception: " + ex.getLocalizedMessage()));
             }
         }
     }
@@ -138,14 +140,14 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
     //                                           ui method implementations                                        //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void doInsert(String parameterString) throws GameException{
+    private void doInsert(String parameterString) throws StatusException,GameException{
         // call guards
         this.checkConnectionStatus();
 
         StringTokenizer st = new StringTokenizer(parameterString);
         int coordinate = Integer.parseInt(st.nextToken());
 
-        this.gameEngine.insert(coordinate);
+        this.gameEngine.insert(1, coordinate);
 
     }
 
@@ -224,7 +226,6 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
         }
     }
 
-    @Override
     public void changed() {
         try {
             this.doPrint();

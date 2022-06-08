@@ -11,13 +11,13 @@ public class ConnectFourInsertTests {
         DebugEngine game = new ConnectFour(7,6, "A");
 
         Assertions.assertThrows(GameException.class, () -> {
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
         });
     }
 
@@ -26,7 +26,7 @@ public class ConnectFourInsertTests {
     void insertTest2(){
         DebugEngine game = new ConnectFour(7,6, "A");
 
-        Assertions.assertThrows(GameException.class, () -> game.insert(8));
+        Assertions.assertThrows(GameException.class, () -> game.insert(1,8));
     }
 
     //Test if the entire board can be completely filled without any exceptions
@@ -35,48 +35,48 @@ public class ConnectFourInsertTests {
         DebugEngine game = new ConnectFour(7,6, "A");
 
         Assertions.assertDoesNotThrow(() -> {
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(1);
-            game.insert(2);
-            game.insert(2);
-            game.insert(2);
-            game.insert(2);
-            game.insert(2);
-            game.insert(2);
-            game.insert(3);
-            game.insert(3);
-            game.insert(3);
-            game.insert(3);
-            game.insert(3);
-            game.insert(3);
-            game.insert(4);
-            game.insert(4);
-            game.insert(4);
-            game.insert(4);
-            game.insert(4);
-            game.insert(4);
-            game.insert(5);
-            game.insert(5);
-            game.insert(5);
-            game.insert(5);
-            game.insert(5);
-            game.insert(5);
-            game.insert(6);
-            game.insert(6);
-            game.insert(6);
-            game.insert(6);
-            game.insert(6);
-            game.insert(6);
-            game.insert(7);
-            game.insert(7);
-            game.insert(7);
-            game.insert(7);
-            game.insert(7);
-            game.insert(7);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,1);
+            game.insert(1,2);
+            game.insert(1,2);
+            game.insert(1,2);
+            game.insert(1,2);
+            game.insert(1,2);
+            game.insert(1,2);
+            game.insert(1,3);
+            game.insert(1,3);
+            game.insert(1,3);
+            game.insert(1,3);
+            game.insert(1,3);
+            game.insert(1,3);
+            game.insert(1,4);
+            game.insert(1,4);
+            game.insert(1,4);
+            game.insert(1,4);
+            game.insert(1,4);
+            game.insert(1,4);
+            game.insert(1,5);
+            game.insert(1,5);
+            game.insert(1,5);
+            game.insert(1,5);
+            game.insert(1,5);
+            game.insert(1,5);
+            game.insert(1,6);
+            game.insert(1,6);
+            game.insert(1,6);
+            game.insert(1,6);
+            game.insert(1,6);
+            game.insert(1,6);
+            game.insert(1,7);
+            game.insert(1,7);
+            game.insert(1,7);
+            game.insert(1,7);
+            game.insert(1,7);
+            game.insert(1,7);
             System.out.println(game.boardToString());
         });
     }

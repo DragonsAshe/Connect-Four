@@ -25,4 +25,7 @@ public interface ConnectFourGame {
      * @param partnerName The partners name
      */
     void setEnemy(String partnerName);
+
+
+    void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
 }

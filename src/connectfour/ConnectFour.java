@@ -1,5 +1,7 @@
 package connectfour;
 
+import network.GameSessionEstablishedListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
     private final Board board;
     private final HashMap<Integer, String> IDToPlayerName = new HashMap<>();
     private Status status = Status.INITIALIZED;
+    private ConnectFourProtocolEngine protocolEngine;
 
     public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
@@ -32,11 +35,11 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
     }
 
     // Method to insert a piece into the column that is specified
-    public void insert(int column) throws GameException{
+    public void insert(int piece, int column) throws GameException{
         if (this.status != Status.ENDED) {
             try {
                 if (board.get(column - 1).size() != 6) {
-                    board.get(column - 1).add(1);
+                    board.get(column - 1).add(piece);
                 } else {
                     throw new GameException("Column is full");
                 }
@@ -124,6 +127,14 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
             b.append("\n");
         }
         return b.toString();
+    }
+
+
+
+
+    public void setProtocolEngine(ConnectFourProtocolEngine protocolEngine) {
+        this.protocolEngine = protocolEngine;
+        this.protocolEngine.subscribeGameSessionEstablishedListener((GameSessionEstablishedListener) this);
     }
 }
 
