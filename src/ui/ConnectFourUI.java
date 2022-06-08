@@ -1,13 +1,14 @@
 package ui;
 
-import connectfour.ConnectFour;
-import connectfour.ConnectFourGame;
-import connectfour.GameException;
+import connectfour.*;
+import network.GameSessionEstablishedListener;
+import network.TCPStream;
+import network.TCPStreamCreatedListener;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class ConnectFourUI {
+public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener, LocalBoardChangeListener {
     private static final String PRINT = "print";
     private static final String EXIT = "exit";
     private static final String CONNECT = "connect";
@@ -19,6 +20,9 @@ public class ConnectFourUI {
     private final BufferedReader inBufferedReader;
     private final ConnectFourGame gameEngine;
     private final String playerName;
+    private TCPStream tcpStream;
+    private ConnectFourTCPProtocolEngine protocolEngine;
+    private String partnerName;
 
     public static void main(String[] args) {
         System.out.println("Welcome to Connect Four version 0.1");
@@ -171,15 +175,61 @@ public class ConnectFourUI {
     /**
      * Guard method - checks if already connected
      */
-    private void checkConnectionStatus() {
+    private void checkConnectionStatus() throws StatusException{
+        if (this.protocolEngine == null) {
+            throw new StatusException("not yet connected - call connect or open before");
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                       helper: don't repeat yourself                                        //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean alreadyConnected() {
+        if (this.tcpStream != null) {
+            System.err.println("connection already established or connection attempt in progress");
+            return true;
+        }
 
+        return false;
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                              listener                                                      //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void streamCreated(TCPStream stream) {
+        // connection established - setup protocol engine
+        System.out.println("stream created - setup engine - we can play quite soon.");
+        this.protocolEngine = new ConnectFourTCPProtocolEngine(this.gameEngine, this.playerName);
+        this.gameEngine.setProtocolEngine(protocolEngine);
 
+        this.protocolEngine.subscribeGameSessionEstablishedListener(this);
+
+        try {
+            protocolEngine.handleConnection(stream.getInputStream(), stream.getOutputStream());
+        } catch (IOException e) {
+            System.err.println("cannot get streams from tcpStream - fatal, give up: " + e.getLocalizedMessage());
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public void gameSessionEstablished(boolean oracle, String partnerName) {
+        System.out.println("game session created");
+        this.partnerName = partnerName;
+
+        if(oracle) {
+            System.out.println("your turn");
+        } else {
+            System.out.println("wait for game partner to set a piece");
+        }
+    }
+
+    @Override
+    public void changed() {
+        try {
+            this.doPrint();
+        } catch (IOException e) {
+            System.err.println("very very unexpected: " + e.getLocalizedMessage());
+        }
+    }
 }
