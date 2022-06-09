@@ -2,7 +2,7 @@ package connectfour;
 
 public enum Status {
     INITIALIZED,
-    READY,
-    WAIT,
+    ACTIVE_Y,
+    ACTIVE_R,
     ENDED
 }

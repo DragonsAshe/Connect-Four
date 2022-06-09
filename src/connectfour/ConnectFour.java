@@ -6,22 +6,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class ConnectFour implements ConnectFourGame, DebugEngine{
+public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEstablishedListener{
     private final Board board;
-    private final HashMap<Integer, String> IDToPlayerName = new HashMap<>();
+    private final HashMap<Character, String> IDToPlayerName = new HashMap<>();
     private Status status = Status.INITIALIZED;
     private ConnectFourProtocolEngine protocolEngine;
+    private final String localPlayerName;
+    private String remotePlayerName;
 
     public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
 
-        this.IDToPlayerName.put((int) (Math.random() * 1000000000), localPlayerName);
+        this.IDToPlayerName.put('Y', localPlayerName);
+        this.localPlayerName = localPlayerName;
     }
 
     @Override
     public void setEnemy(String partnerName) {
-        this.IDToPlayerName.put(2, partnerName);
-        String huh = this.IDToPlayerName.get(2);//makes code analyser happy
+        this.IDToPlayerName.put('R', partnerName);
+        String huh = this.IDToPlayerName.get('R');//makes code analyser happy
+    }
+
+    public void changePlayerPiece(char piece){
+        this.IDToPlayerName.remove('Y');
+        this.IDToPlayerName.put('R', this.localPlayerName);
     }
 
 
@@ -45,6 +53,9 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
                 }
             } catch (RuntimeException e){
                 throw new GameException("Column not on board");
+            }
+            if(piece == 1){
+                this.protocolEngine.insert(piece, column);
             }
         }
     }
@@ -134,7 +145,19 @@ public class ConnectFour implements ConnectFourGame, DebugEngine{
 
     public void setProtocolEngine(ConnectFourProtocolEngine protocolEngine) {
         this.protocolEngine = protocolEngine;
-        this.protocolEngine.subscribeGameSessionEstablishedListener((GameSessionEstablishedListener) this);
+        this.protocolEngine.subscribeGameSessionEstablishedListener(this);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                            listener                                                 //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void gameSessionEstablished(boolean oracle, String partnerName) {
+        System.out.println(this.localPlayerName + ": gameSessionEstablished with " + partnerName + " | " + oracle);
+
+        this.remotePlayerName = partnerName;
+
+        // O always starts
+        this.status = Status.ACTIVE_Y;
     }
 }
 

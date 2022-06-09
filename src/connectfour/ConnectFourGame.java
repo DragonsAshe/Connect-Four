@@ -1,6 +1,7 @@
 package connectfour;
 
-public interface ConnectFourGame {
+public interface ConnectFourGame extends ConnectFourInsert{
+    int DEFAULT_PORT = 1337;
     /**
      * Method that checks if a given player has won
      * @param localPlayerName The player to check if he won
@@ -8,11 +9,7 @@ public interface ConnectFourGame {
      */
     boolean win (int localPlayerName);
 
-    /**
-     * Method to insert a piece into the board
-     * @param column The column that the piece should be inserted to
-     */
-    void insert(int piece, int column) throws GameException;
+
 
     /**
      * Method converts the board into a printable string
@@ -26,6 +23,7 @@ public interface ConnectFourGame {
      */
     void setEnemy(String partnerName);
 
+    void changePlayerPiece(char piece);
 
     void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
 }

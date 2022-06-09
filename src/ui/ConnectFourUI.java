@@ -6,6 +6,7 @@ import network.TCPStream;
 import network.TCPStreamCreatedListener;
 
 import java.io.*;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener{
@@ -102,7 +103,7 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
                 // start command loop
                 switch (commandString) {
                     case PRINT -> this.doPrint();
-                    case CONNECT -> this.doConnect();
+                    case CONNECT -> this.doConnect(parameterString);
                     case OPEN -> this.doOpen();
                     case INSERT -> {
                         this.doInsert(parameterString);
@@ -153,15 +154,36 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
 
     private void doExit() throws IOException {
         // shutdown engines which needs to be
-
+        this.protocolEngine.close();
     }
 
     private void doOpen() {
+        if (this.alreadyConnected()) return;
 
+        this.tcpStream = new TCPStream(ConnectFourGame.DEFAULT_PORT, true, this.playerName);
+        this.tcpStream.setStreamCreationListener(this);
+        this.tcpStream.start();
     }
 
-    private void doConnect() {
+    private void doConnect(String parameterString) {
+        if (this.alreadyConnected()) return;
 
+        String hostname = null;
+
+        try {
+            StringTokenizer st = new StringTokenizer(parameterString);
+            hostname = st.nextToken();
+        }
+        catch (NoSuchElementException e) {
+            System.out.println("no hostname provided - take localhost");
+            hostname = "localhost";
+        }
+
+        this.tcpStream = new TCPStream(ConnectFourGame.DEFAULT_PORT, false, this.playerName);
+        this.tcpStream.setRemoteEngine(hostname);
+        this.tcpStream.setStreamCreationListener(this);
+        this.tcpStream.start();
+        this.gameEngine.changePlayerPiece('R');
     }
 
     private void doPrint() throws IOException {

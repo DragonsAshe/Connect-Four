@@ -9,26 +9,26 @@ import java.util.List;
 
 import static connectfour.ConnectFourTCPProtocolEngine.METHOD_SET;
 
-public abstract class ConnectFourProtocolEngine implements ConnectFourGame {
+public abstract class ConnectFourProtocolEngine implements ConnectFourInsert {
     public static final int SYMBOL_0 = 0;
     public static final int SYMBOL_X = 1;
 
-    void serializeSet(int piece, int coloumn, OutputStream os) throws GameException {
+    void serializeSet(int piece, int column, OutputStream os) throws GameException {
         DataOutputStream dos = new DataOutputStream(os);
 
         // write method id
         try {
             dos.writeInt(METHOD_SET);
             // serialize symbol
-            dos.writeInt(piece);
+            dos.writeInt(2);
             // serialize position coordinates
-            dos.writeInt(coloumn);
+            dos.writeInt(column);
         } catch (IOException e) {
             throw new GameException(e.getLocalizedMessage());
         }
     }
 
-    InsertCommand deserializeSet(InputStream is) throws GameException, IOException {
+    InsertCommand deserializeInsert(InputStream is) throws GameException, IOException {
         DataInputStream dis = new DataInputStream(is);
         // read serialized symbol
         int piece = dis.readInt();
@@ -46,7 +46,7 @@ public abstract class ConnectFourProtocolEngine implements ConnectFourGame {
 
     private List<GameSessionEstablishedListener> sessionCreatedListenerList = new ArrayList<>();
 
-    void subscribeGameSessionEstablishedListener(GameSessionEstablishedListener ocListener) {
+    public void subscribeGameSessionEstablishedListener(GameSessionEstablishedListener ocListener) {
         this.sessionCreatedListenerList.add(ocListener);
     }
 
