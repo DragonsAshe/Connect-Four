@@ -26,4 +26,8 @@ public interface ConnectFourGame extends ConnectFourInsert{
     void changePlayerPiece(char piece);
 
     void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
+
+    void setStatusReady();
+
+    void setStatusWaiting();
 }

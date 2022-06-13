@@ -43,8 +43,8 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
     }
 
     // Method to insert a piece into the column that is specified
-    public void insert(int piece, int column) throws GameException{
-        if (this.status != Status.ENDED) {
+    public void insert(int piece, int column) throws GameException, StatusException{
+        if (this.status != Status.ENDED && this.status == Status.READY) {
             try {
                 if (board.get(column - 1).size() != 6) {
                     board.get(column - 1).add(piece);
@@ -56,7 +56,15 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
             }
             if(piece == 1){
                 this.protocolEngine.insert(piece, column);
+                this.status = Status.WAITING;
             }
+        }else if (piece != 1){
+            if (board.get(column - 1).size() != 6) {
+                board.get(column - 1).add(piece);
+                this.status = Status.READY;
+            }
+        } else {
+            throw new StatusException("Wrong status");
         }
     }
 
@@ -140,8 +148,15 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
         return b.toString();
     }
 
+    @Override
+    public void setStatusReady() {
+        this.status = Status.READY;
+    }
 
-
+    @Override
+    public void setStatusWaiting() {
+        this.status = Status.WAITING;
+    }
 
     public void setProtocolEngine(ConnectFourProtocolEngine protocolEngine) {
         this.protocolEngine = protocolEngine;
@@ -157,7 +172,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
         this.remotePlayerName = partnerName;
 
         // O always starts
-        this.status = Status.ACTIVE_Y;
+        this.status = Status.READY;
     }
 }
 

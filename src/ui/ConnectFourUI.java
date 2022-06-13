@@ -243,8 +243,10 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
 
         if(oracle) {
             System.out.println("your turn");
+            gameEngine.setStatusReady();
         } else {
             System.out.println("wait for game partner to set a piece");
+            gameEngine.setStatusWaiting();
         }
     }
 

@@ -50,7 +50,8 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
             InsertCommand insertCommand = this.deserializeInsert(this.is);
             // call method - but no need to keep result - it isn't sent back.
             this.gameEngine.insert(2 , insertCommand.getColumn());
-        } catch (IOException e) {
+            System.out.println(this.gameEngine.boardToString());
+        } catch (IOException | StatusException e) {
             throw new GameException("could not deserialize command", e);
         }
     }
