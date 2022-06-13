@@ -1,6 +1,5 @@
 package connectfour;
 
-import  network.GameSessionEstablishedListener;
 import network.ProtocolEngine;
 
 import java.io.*;
@@ -9,7 +8,7 @@ import java.util.Random;
 public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
         implements Runnable, ProtocolEngine {
     private static final String DEFAULT_NAME = "anonymousProtocolEngine";
-    private String name;
+    private final String name;
     private OutputStream os;
     private InputStream is;
     private final ConnectFourGame gameEngine;
@@ -26,8 +25,8 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
 
     /**
      * constructor has an additional name - helps debugging.
-     * @param gameEngine
-     * @param name
+     * @param gameEngine game engine
+     * @param name name
      */
     public ConnectFourTCPProtocolEngine(ConnectFourGame gameEngine, String name) {
         this.gameEngine = gameEngine;
@@ -63,13 +62,14 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
         // read method id
         try {
             int commandID = dis.readInt();
-            switch (commandID) {
-//                case METHOD_PICK: this.deserializePick(); return true;
-                case METHOD_SET: this.deserializeInsert(); return true;
+            //                case METHOD_PICK: this.deserializePick(); return true;
+            if (commandID == METHOD_SET) {
+                this.deserializeInsert();
+                return true;
 //                case RESULT_PICK: this.deserializeResultPick(); return true;
-                default: this.log("unknown method, throw exception id == " + commandID); return false;
-
             }
+            this.log("unknown method, throw exception id == " + commandID);
+            return false;
         } catch (IOException e) {
             this.log("IOException caught - most probably connection close - stop thread / stop engine");
             try {
@@ -87,7 +87,7 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
         long seed = this.hashCode() * System.currentTimeMillis();
         Random random = new Random(seed);
 
-        int localInt = 0, remoteInt = 0;
+        int localInt, remoteInt;
         try {
             DataOutputStream dos = new DataOutputStream(this.os);
             DataInputStream dis = new DataInputStream(this.is);
@@ -111,6 +111,7 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
 
         this.notifyGamesSessionEstablished(ConnectFourTCPProtocolEngine.this.oracle,
                 ConnectFourTCPProtocolEngine.this.partnerName);
+        this.gameEngine.amIStarting(this.oracle);
 
         try {
             boolean again = true;
@@ -118,7 +119,7 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
                 again = this.read();
             }
         } catch (GameException e) {
-            this.logError("exception called in protocol engine thread - fatal and stop");
+            this.logError();
             e.printStackTrace();
             // leave while - end thread
         }
@@ -155,7 +156,7 @@ public class ConnectFourTCPProtocolEngine extends ConnectFourProtocolEngine
         System.out.println(this.produceLogString(message));
     }
 
-    private void logError(String message) {
-        System.err.println(this.produceLogString(message));
+    private void logError() {
+        System.err.println(this.produceLogString("exception called in protocol engine thread - fatal and stop"));
     }
 }

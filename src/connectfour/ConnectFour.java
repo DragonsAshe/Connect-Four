@@ -21,6 +21,13 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
         this.localPlayerName = localPlayerName;
     }
 
+    public ConnectFour(String localPlayerName){
+        this.board = new Board(7,6);
+
+        this.IDToPlayerName.put('Y', localPlayerName);
+        this.localPlayerName = localPlayerName;
+    }
+
     @Override
     public void setEnemy(String partnerName) {
         this.IDToPlayerName.put('R', partnerName);
@@ -57,11 +64,13 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
             if(piece == 1){
                 this.protocolEngine.insert(piece, column);
                 this.status = Status.WAITING;
+                this.win(piece);
             }
         }else if (piece != 1){
             if (board.get(column - 1).size() != 6) {
                 board.get(column - 1).add(piece);
                 this.status = Status.READY;
+                this.win(piece);
             }
         } else {
             throw new StatusException("Wrong status");
@@ -149,18 +158,33 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
     }
 
     @Override
-    public void setStatusReady() {
-        this.status = Status.READY;
+    public void amIStarting(boolean status) {
+        if (status){
+            this.status = Status.READY;
+        } else {
+            this.status = Status.WAITING;
+        }
     }
 
-    @Override
-    public void setStatusWaiting() {
-        this.status = Status.WAITING;
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                       constructor helper                                             //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void setProtocolEngine(ConnectFourProtocolEngine protocolEngine) {
         this.protocolEngine = protocolEngine;
         this.protocolEngine.subscribeGameSessionEstablishedListener(this);
+    }
+
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public boolean hasWon() {
+        return this.status == Status.ENDED && this.win(1);
+    }
+
+    public boolean hasLost() {
+        return this.status == Status.ENDED && !this.win(1);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                            listener                                                 //
@@ -170,9 +194,6 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
         System.out.println(this.localPlayerName + ": gameSessionEstablished with " + partnerName + " | " + oracle);
 
         this.remotePlayerName = partnerName;
-
-        // O always starts
-        this.status = Status.READY;
     }
 }
 

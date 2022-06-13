@@ -168,7 +168,7 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
     private void doConnect(String parameterString) {
         if (this.alreadyConnected()) return;
 
-        String hostname = null;
+        String hostname;
 
         try {
             StringTokenizer st = new StringTokenizer(parameterString);
@@ -243,10 +243,8 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
 
         if(oracle) {
             System.out.println("your turn");
-            gameEngine.setStatusReady();
         } else {
             System.out.println("wait for game partner to set a piece");
-            gameEngine.setStatusWaiting();
         }
     }
 

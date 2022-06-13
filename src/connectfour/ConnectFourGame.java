@@ -27,7 +27,5 @@ public interface ConnectFourGame extends ConnectFourInsert{
 
     void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
 
-    void setStatusReady();
-
-    void setStatusWaiting();
+    void amIStarting(boolean status);
 }
