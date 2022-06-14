@@ -5,6 +5,7 @@ import network.GameSessionEstablishedListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEstablishedListener{
     private final Board board;
@@ -70,6 +71,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
             if (board.get(column - 1).size() != 6) {
                 board.get(column - 1).add(piece);
                 this.status = Status.READY;
+                this.notifyBoardChanged();
                 this.win(piece);
             }
         } else {
@@ -185,6 +187,29 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
 
     public boolean hasLost() {
         return this.status == Status.ENDED && !this.win(1);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                            observed                                                 //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private List<LocalBoardChangeListener> boardChangeListenerList = new ArrayList<>();
+
+    public void subscribeChangeListener(LocalBoardChangeListener changeListener) {
+        this.boardChangeListenerList.add(changeListener);
+    }
+
+    private void notifyBoardChanged() {
+        // are there any listeners ?
+        if(this.boardChangeListenerList == null || this.boardChangeListenerList.isEmpty()) return;
+
+        // yes - there are - create a thread and inform them
+        (new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(LocalBoardChangeListener listener : ConnectFour.this.boardChangeListenerList) {
+                    listener.changed();
+                }
+            }
+        })).start();
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                            listener                                                 //

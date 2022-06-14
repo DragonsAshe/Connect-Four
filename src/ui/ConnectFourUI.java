@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener{
+public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener, LocalBoardChangeListener{
     private static final String PRINT = "print";
     private static final String EXIT = "exit";
     private static final String CONNECT = "connect";
@@ -48,6 +48,7 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
         this.playerName = playerName;
 
         this.gameEngine = new ConnectFour(DEFAULT_COLUMNS, DEFAULT_ROWS, playerName);
+        this.gameEngine.subscribeChangeListener(this);
     }
 
     public void printUsage() {

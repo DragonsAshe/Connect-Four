@@ -28,4 +28,6 @@ public interface ConnectFourGame extends ConnectFourInsert{
     void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
 
     void amIStarting(boolean status);
+
+    void subscribeChangeListener(LocalBoardChangeListener changeListener);
 }
