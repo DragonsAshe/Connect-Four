@@ -16,16 +16,14 @@ public interface ConnectFourGame extends ConnectFourInsert{
     String boardToString();
 
     /**
-     * Method that puts the partner name into the hashmap
-     * @param partnerName The partners name
+     * Method to change the player piece from the default Y to R
      */
-    void setEnemy(String partnerName);
+    void changePlayerPiece();
 
     /**
-     * Method to change the player piece from the default Y to R
-     * @param piece i fogor
+     * Method that resets the player pieces to the default
      */
-    void changePlayerPiece(char piece);
+    void resetPlayerPieces();
 
     /**
      * Method that sets the protocol engine
@@ -44,4 +42,16 @@ public interface ConnectFourGame extends ConnectFourInsert{
      * @param changeListener The change listener
      */
     void subscribeChangeListener(LocalBoardChangeListener changeListener);
+
+    /**
+     * Method the checks if the player has won
+     * @return true == yes, false == game not over yet or lost
+     */
+    boolean hasWon();
+
+    /**
+     * Method that checks if the player has lost
+     * @return true == yes, false == game not over yet or lost
+     */
+    boolean hasLost();
 }

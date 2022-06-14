@@ -7,6 +7,7 @@ import network.TCPStreamCreatedListener;
 
 import java.io.*;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstablishedListener, LocalBoardChangeListener{
@@ -28,15 +29,12 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
     public static void main(String[] args) {
         System.out.println("Welcome to Connect Four version 0.1");
 
-        if (args.length < 1) {
-            System.err.println("need playerName as parameter");
-            System.exit(1);
-        }
-
-        System.out.println("Welcome " + args[0]);
+        System.out.print("Input player name: ");
+        Scanner sc = new Scanner(System.in);
+        String name = sc.nextLine();
         System.out.println("Let's play a game");
 
-        ConnectFourUI userCmd = new ConnectFourUI(args[0], System.out, System.in);
+        ConnectFourUI userCmd = new ConnectFourUI(name, System.out, System.in);
 
         userCmd.printUsage();
         userCmd.runCommandLoop();
@@ -150,7 +148,6 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
         int coordinate = Integer.parseInt(st.nextToken());
 
         this.gameEngine.insert(1, coordinate);
-
     }
 
     private void doExit() throws IOException {
@@ -164,6 +161,7 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
         this.tcpStream = new TCPStream(ConnectFourGame.DEFAULT_PORT, true, this.playerName);
         this.tcpStream.setStreamCreationListener(this);
         this.tcpStream.start();
+        this.gameEngine.resetPlayerPieces();
     }
 
     private void doConnect(String parameterString) {
@@ -184,13 +182,19 @@ public class ConnectFourUI implements TCPStreamCreatedListener, GameSessionEstab
         this.tcpStream.setRemoteEngine(hostname);
         this.tcpStream.setStreamCreationListener(this);
         this.tcpStream.start();
-        this.gameEngine.changePlayerPiece('R');
+        this.gameEngine.changePlayerPiece();
     }
 
     private void doPrint() throws IOException {
 
+        this.outStream.println();
         this.outStream.println(this.gameEngine.boardToString());
 
+        if (gameEngine.hasWon()){
+            this.outStream.println(this.playerName + " has won! :)");
+        } else if (gameEngine.hasLost()){
+            this.outStream.println(this.partnerName + " has won. :(");
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

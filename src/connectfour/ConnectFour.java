@@ -9,36 +9,40 @@ import java.util.List;
 
 public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEstablishedListener{
     private final Board board;
-    private final HashMap<Character, String> IDToPlayerName = new HashMap<>();
+    private final HashMap<Integer, Character> IDToPlayerName = new HashMap<>();
     private Status status = Status.INITIALIZED;
     private ConnectFourProtocolEngine protocolEngine;
     private final String localPlayerName;
-    private String remotePlayerName;
 
     public ConnectFour(int columns, int rows, String localPlayerName) {
         this.board = new Board(columns, rows);
 
-        this.IDToPlayerName.put('Y', localPlayerName);
+        this.IDToPlayerName.put(1, 'Y');
+        this.IDToPlayerName.put(2, 'R');
         this.localPlayerName = localPlayerName;
     }
 
     public ConnectFour(String localPlayerName){
         this.board = new Board(7,6);
 
-        this.IDToPlayerName.put('Y', localPlayerName);
+        this.IDToPlayerName.put(1, 'Y');
         this.localPlayerName = localPlayerName;
     }
 
+    public void changePlayerPiece(){
+        this.IDToPlayerName.remove(1);
+        this.IDToPlayerName.remove(2);
+        this.IDToPlayerName.put(1, 'R');
+        this.IDToPlayerName.put(2, 'Y');
+    }
+
     @Override
-    public void setEnemy(String partnerName) {
-        this.IDToPlayerName.put('R', partnerName);
+    public void resetPlayerPieces() {
+        this.IDToPlayerName.remove(1);
+        this.IDToPlayerName.remove(2);
+        this.IDToPlayerName.put(1, 'Y');
+        this.IDToPlayerName.put(2, 'R');
     }
-
-    public void changePlayerPiece(char piece){
-        this.IDToPlayerName.remove('Y');
-        this.IDToPlayerName.put('R', this.localPlayerName);
-    }
-
 
     @Override
     public void insertDebug(int position, int player){
@@ -149,8 +153,11 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
             for(int column = 0; column < 7; column++) {
                 if(board.get(column).size()-1 < row) {
                     b.append("0 | ");
-                }else{
-                    b.append(this.board.getCell(column, row)).append(" | ");
+                }else if (this.board.getCell(column, row) == 1){
+                    //b.append(this.board.getCell(column, row)).append(" | ");
+                    b.append(this.IDToPlayerName.get(1)).append(" | ");
+                } else if (this.board.getCell(column, row) == 2){
+                    b.append(this.IDToPlayerName.get(2)).append(" | ");
                 }
             }
             b.append("\n");
@@ -214,7 +221,6 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
     public void gameSessionEstablished(boolean oracle, String partnerName) {
         System.out.println(this.localPlayerName + ": gameSessionEstablished with " + partnerName + " | " + oracle);
 
-        this.remotePlayerName = partnerName;
     }
 }
 
