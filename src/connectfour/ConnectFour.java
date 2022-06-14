@@ -32,7 +32,6 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
     @Override
     public void setEnemy(String partnerName) {
         this.IDToPlayerName.put('R', partnerName);
-        String huh = this.IDToPlayerName.get('R');//makes code analyser happy
     }
 
     public void changePlayerPiece(char piece){
@@ -191,7 +190,7 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                            observed                                                 //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private List<LocalBoardChangeListener> boardChangeListenerList = new ArrayList<>();
+    private final List<LocalBoardChangeListener> boardChangeListenerList = new ArrayList<>();
 
     public void subscribeChangeListener(LocalBoardChangeListener changeListener) {
         this.boardChangeListenerList.add(changeListener);
@@ -199,15 +198,12 @@ public class ConnectFour implements ConnectFourGame, DebugEngine, GameSessionEst
 
     private void notifyBoardChanged() {
         // are there any listeners ?
-        if(this.boardChangeListenerList == null || this.boardChangeListenerList.isEmpty()) return;
+        if(this.boardChangeListenerList.isEmpty()) return;
 
         // yes - there are - create a thread and inform them
-        (new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(LocalBoardChangeListener listener : ConnectFour.this.boardChangeListenerList) {
-                    listener.changed();
-                }
+        (new Thread(() -> {
+            for(LocalBoardChangeListener listener : ConnectFour.this.boardChangeListenerList) {
+                listener.changed();
             }
         })).start();
     }

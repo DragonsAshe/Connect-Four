@@ -14,7 +14,7 @@ public class TCPStream extends Thread {
     private final int port;
     private final boolean asServer;
     private final String name;
-    private TCPStreamCreatedListener listener = null;
+    private TCPStreamCreatedListener listener;
     private Socket socket = null;
 
     private boolean fatalError = false;
@@ -180,7 +180,7 @@ public class TCPStream extends Thread {
             b.append("opened port ");
             b.append(port);
             b.append(" on localhost and wait");
-            System.out.println(b.toString());
+            System.out.println(b);
             //>>>>>>>>>>>>>>>>>>>debug
 
             Socket socket = this.srvSocket.accept();
@@ -191,7 +191,7 @@ public class TCPStream extends Thread {
             b.append(name);
             b.append("): ");
             b.append("connected");
-            System.out.println(b.toString());
+            System.out.println(b);
             //>>>>>>>>>>>>>>>>>>>debug
 
             return socket;
@@ -213,28 +213,25 @@ public class TCPStream extends Thread {
             while(!this.killed) {
                 try {
                     //<<<<<<<<<<<<<<<<<<debug
-                    StringBuilder b = new StringBuilder();
-                    b.append(this.getClass().getSimpleName());
-                    b.append(" (");
-                    b.append(name);
-                    b.append("): ");
-                    b.append("try to connect localhost port ");
-                    b.append(port);
-                    System.out.println(b.toString());
+                    String b = this.getClass().getSimpleName() +
+                            " (" +
+                            name +
+                            "): " +
+                            "try to connect localhost port " +
+                            port;
+                    System.out.println(b);
                     //>>>>>>>>>>>>>>>>>>>debug
-                    Socket socket = new Socket(TCPStream.this.remoteEngine, port);
-                    return socket;
+                    return new Socket(TCPStream.this.remoteEngine, port);
                 }
                 catch(IOException ioe) {
                     //<<<<<<<<<<<<<<<<<<debug
-                    StringBuilder b = new StringBuilder();
-                    b.append(this.getClass().getSimpleName());
-                    b.append(" (");
-                    b.append(name);
-                    b.append("): ");
-                    b.append("failed / wait and re-try");
-                    b.append(port);
-                    System.out.println(b.toString());
+                    String b = this.getClass().getSimpleName() +
+                            " (" +
+                            name +
+                            "): " +
+                            "failed / wait and re-try" +
+                            port;
+                    System.out.println(b);
                     try {
                         Thread.sleep(waitInMillis);
                     } catch (InterruptedException ex) {

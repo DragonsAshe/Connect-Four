@@ -1,7 +1,6 @@
 package connectfour;
 
 import network.GameSessionEstablishedListener;
-import network.ProtocolEngine;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import java.util.List;
 import static connectfour.ConnectFourTCPProtocolEngine.METHOD_SET;
 
 public abstract class ConnectFourProtocolEngine implements ConnectFourInsert {
-    public static final int SYMBOL_0 = 0;
-    public static final int SYMBOL_X = 1;
 
     void serializeSet(int piece, int column, OutputStream os) throws GameException {
         DataOutputStream dos = new DataOutputStream(os);
@@ -28,7 +25,7 @@ public abstract class ConnectFourProtocolEngine implements ConnectFourInsert {
         }
     }
 
-    InsertCommand deserializeInsert(InputStream is) throws GameException, IOException {
+    InsertCommand deserializeInsert(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(is);
         // read serialized symbol
         int piece = dis.readInt();
@@ -44,7 +41,7 @@ public abstract class ConnectFourProtocolEngine implements ConnectFourInsert {
     //                                         oracle creation listener                                      //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private List<GameSessionEstablishedListener> sessionCreatedListenerList = new ArrayList<>();
+    private final List<GameSessionEstablishedListener> sessionCreatedListenerList = new ArrayList<>();
 
     public void subscribeGameSessionEstablishedListener(GameSessionEstablishedListener ocListener) {
         this.sessionCreatedListenerList.add(ocListener);
@@ -56,18 +53,15 @@ public abstract class ConnectFourProtocolEngine implements ConnectFourInsert {
 
     void notifyGamesSessionEstablished(boolean oracle, String partnerName) {
         // call listener
-        if (this.sessionCreatedListenerList != null && !this.sessionCreatedListenerList.isEmpty()) {
+        if (!this.sessionCreatedListenerList.isEmpty()) {
             for (GameSessionEstablishedListener oclistener : this.sessionCreatedListenerList) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1); // block a moment to let read thread start - just in case
-                        } catch (InterruptedException e) {
-                            // will not happen
-                        }
-                        oclistener.gameSessionEstablished(oracle, partnerName);
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1); // block a moment to let read thread start - just in case
+                    } catch (InterruptedException e) {
+                        // will not happen
                     }
+                    oclistener.gameSessionEstablished(oracle, partnerName);
                 }).start();
             }
         }

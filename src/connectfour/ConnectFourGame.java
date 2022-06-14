@@ -9,8 +9,6 @@ public interface ConnectFourGame extends ConnectFourInsert{
      */
     boolean win (int localPlayerName);
 
-
-
     /**
      * Method converts the board into a printable string
      * @return returns a String that holds the board
@@ -23,11 +21,27 @@ public interface ConnectFourGame extends ConnectFourInsert{
      */
     void setEnemy(String partnerName);
 
+    /**
+     * Method to change the player piece from the default Y to R
+     * @param piece i fogor
+     */
     void changePlayerPiece(char piece);
 
+    /**
+     * Method that sets the protocol engine
+     * @param protocolEngine The protocol engine
+     */
     void setProtocolEngine(ConnectFourProtocolEngine protocolEngine);
 
+    /**
+     * A method that sets the status to the correct one after the coin got fliped
+     * @param status true == ready, false == waiting
+     */
     void amIStarting(boolean status);
 
+    /**
+     * Method that subscribes to the change listener (When there is an input from the tcp it will print the board)
+     * @param changeListener The change listener
+     */
     void subscribeChangeListener(LocalBoardChangeListener changeListener);
 }

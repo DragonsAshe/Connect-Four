@@ -12,11 +12,11 @@ public class ConnectFourInsertTests {
 
         Assertions.assertThrows(GameException.class, () -> {
             game.insert(1,1);
+            game.insert(2,1);
             game.insert(1,1);
+            game.insert(2,1);
             game.insert(1,1);
-            game.insert(1,1);
-            game.insert(1,1);
-            game.insert(1,1);
+            game.insert(2,1);
             game.insert(1,1);
         });
     }
@@ -25,7 +25,7 @@ public class ConnectFourInsertTests {
     @Test
     void insertTest2(){
         DebugEngine game = new ConnectFour(7,6, "A");
-
+        game.amIStarting(true);
         Assertions.assertThrows(GameException.class, () -> game.insert(1,8));
     }
 
